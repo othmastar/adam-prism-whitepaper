@@ -8,6 +8,7 @@ authors:
     orcid: ""
 date-released: 2026-09-07
 version: v0.2
+doi: 10.5281/zenodo.22638788
 license: CC-BY-4.0
 keywords:
   - agentic AI
@@ -16,3 +17,4 @@ keywords:
   - sovereign AI
   - local LLM
   - spec-conformance
+url: "https://github.com/othmastar/adam-prism-whitepaper"

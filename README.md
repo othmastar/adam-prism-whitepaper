@@ -5,6 +5,10 @@ sources, and the measured benchmark data that back its claims. It intentionally 
 **no source code** — the Adam Prism implementation remains in a separate, private
 repository.
 
+**DOI:** [10.5281/zenodo.22638788](https://doi.org/10.5281/zenodo.22638788)
+([Zenodo record](https://zenodo.org/records/22638788))
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22638788.svg)](https://doi.org/10.5281/zenodo.22638788)
+
 ## Contents
 
 ```
