@@ -1,935 +1,935 @@
 {
- "note": "Adam Prism system-efficiency benchmark (RTX 3060 12GB, local Ollama, $0). Mode A=commander does everything; Mode B=two-role split (commander gemma4:12b decides, executor qwen2.5-coder:14b generates/repairs). External verify runs each generated *test* file explicitly.",
- "runs": [
-  {
-   "goal": "word_count",
-   "mode": "gemma(fallback)",
-   "wall_secs": 191.1,
-   "plan_secs": 24.6,
-   "scenario_secs": 166.5,
-   "nodes": 6,
-   "result_success": true,
-   "deep_checks": 2,
-   "spec_audits": 2,
-   "spec_repairs": 1,
-   "spec_failures": 1,
-   "files_repaired": [
-    "tests_word_count.py",
-    "word_count.py"
-   ],
-   "verify": {
-    "py_compile": true,
-    "pytest_pass": true,
-    "pytest_passed": 5,
-    "pytest_failed": 0
-   },
-   "usage_tokens": {
-    "gemma4:12b": {
-     "requests": 12,
-     "prompt_tokens": 16449,
-     "eval_tokens": 5172,
-     "total_duration_ns": 189852305985
-    }
-   }
-  },
-  {
-   "goal": "fib",
-   "mode": "gemma(fallback)",
-   "wall_secs": 147.0,
-   "plan_secs": 25.8,
-   "scenario_secs": 121.2,
-   "nodes": 6,
-   "result_success": true,
-   "deep_checks": 2,
-   "spec_audits": 2,
-   "spec_repairs": 1,
-   "spec_failures": 1,
-   "files_repaired": [
-    "fib.py",
-    "tests_fib.py"
-   ],
-   "verify": {
-    "py_compile": true,
-    "pytest_pass": true,
-    "pytest_passed": 2,
-    "pytest_failed": 0
-   },
-   "usage_tokens": {
-    "gemma4:12b": {
-     "requests": 23,
-     "prompt_tokens": 30556,
-     "eval_tokens": 9105,
-     "total_duration_ns": 335770710900
-    }
-   }
-  },
-  {
-   "goal": "word_count",
-   "mode": "qwen2.5-coder:14b",
-   "wall_secs": 166.6,
-   "plan_secs": 22.4,
-   "scenario_secs": 144.2,
-   "nodes": 6,
-   "result_success": true,
-   "deep_checks": 2,
-   "spec_audits": 2,
-   "spec_repairs": 1,
-   "spec_failures": 1,
-   "files_repaired": [
-    "tests_word_count.py",
-    "word_count.py"
-   ],
-   "verify": {
-    "py_compile": true,
-    "pytest_pass": true,
-    "pytest_passed": 3,
-    "pytest_failed": 0
-   },
-   "usage_tokens": {
-    "gemma4:12b": {
-     "requests": 8,
-     "prompt_tokens": 9212,
-     "eval_tokens": 2895,
-     "total_duration_ns": 120865327494
-    },
-    "qwen2.5-coder:14b": {
-     "requests": 4,
-     "prompt_tokens": 5033,
-     "eval_tokens": 832,
-     "total_duration_ns": 43413774109
-    }
-   }
-  },
-  {
-   "goal": "fib",
-   "mode": "qwen2.5-coder:14b",
-   "wall_secs": 191.3,
-   "plan_secs": 24.9,
-   "scenario_secs": 166.4,
-   "nodes": 6,
-   "result_success": true,
-   "deep_checks": 2,
-   "spec_audits": 2,
-   "spec_repairs": 1,
-   "spec_failures": 1,
-   "files_repaired": [
-    "fib.py",
-    "tests_fib.py"
-   ],
-   "verify": {
-    "py_compile": true,
-    "pytest_pass": true,
-    "pytest_passed": 2,
-    "pytest_failed": 0
-   },
-   "usage_tokens": {
-    "gemma4:12b": {
-     "requests": 16,
-     "prompt_tokens": 18733,
-     "eval_tokens": 5761,
-     "total_duration_ns": 243082437579
-    },
-    "qwen2.5-coder:14b": {
-     "requests": 9,
-     "prompt_tokens": 11561,
-     "eval_tokens": 2194,
-     "total_duration_ns": 110019048768
-    }
-   }
-  }
- ],
- "trace_runs": [
-  {
-   "scenario": "data_audit_fraud",
-   "note": "live pipeline trace on a built-in scenario (not a benchmark goal): ScenarioLoader -> StepExecutor (commander gemma4:12b plan/judge, executor qwen2.5-coder:14b code), verification loop + replan review loop + spec judge. Honest outcome: system REFUSED pass (report scored 0.52 -> 3 replan cycles -> max_retries -> fallback none).",
-   "result_success": false,
-   "wall_secs": 143.4,
-   "steps_completed": 6,
-   "steps_total": 9,
-   "result_errors": [
-    "Step step3: exceeded max_retries (2) after review failures → fallback none",
-    "Step step4: exceeded max_retries (2) after review failures → fallback none",
-    "Step step5: exceeded max_retries (2) after review failures → fallback none"
-   ],
-   "metrics": {
-    "progress": {
-     "total": 9,
-     "completed": 6,
-     "failed": 3,
-     "running": 0,
-     "skipped": 0,
-     "progress_pct": 66.66666666666666,
-     "status": "failed"
-    },
-    "step_durations": {
-     "step0": 14374.03655052185,
-     "step0r": 3220.043182373047,
-     "step1": 1.4345645904541016,
-     "step2": 23482.550382614136,
-     "step3": 17742.014408111572,
-     "step4": 4791.185140609741,
-     "step5": 1.402139663696289,
-     "stepR": 12741.527318954468,
-     "stepV": 5185.387849807739
-    },
-    "replans": {
-     "step3": 3,
-     "step4": 3,
-     "step5": 3
-    },
-    "compaction": {
-     "summarized": 0,
-     "total_chars_saved": 0,
-     "enabled": false
-    },
-    "cost": {
-     "llm_calls": 13,
-     "prompt_chars": 32240,
-     "output_chars": 7775,
-     "est_tokens": 10003
-    },
-    "checkpoints": [],
-    "evaluation": {
-     "stepR": {
-      "verdict": "fail",
-      "overall_score": 0.52,
-      "evaluations": {
-       "step3": {
-        "step_id": "step3",
-        "verdict": "pass",
-        "score": 1.0,
-        "artifacts": {
-         "passed": true,
-         "checks": {},
-         "failures": []
-        },
-        "g_eval": {
-         "score": null,
-         "reasoning": "الحكم بالـ rubric مؤجل إلى الخطوة النهائية المتكاملة",
-         "criteria": {},
-         "escalated": false,
-         "verdict": "pass"
-        },
-        "hybrid": {
-         "score": 3.0
-        },
-        "weighted": 1.0,
-        "escalated": false,
-        "rationale": "rubric deferred to final consolidated step"
-       },
-       "step4": {
-        "step_id": "step4",
-        "verdict": "pass",
-        "score": 1.0,
-        "artifacts": {
-         "passed": true,
-         "checks": {},
-         "failures": []
-        },
-        "g_eval": {
-         "score": null,
-         "reasoning": "الحكم بالـ rubric مؤجل إلى الخطوة النهائية المتكاملة",
-         "criteria": {},
-         "escalated": false,
-         "verdict": "pass"
-        },
-        "hybrid": {
-         "score": 3.0
-        },
-        "weighted": 1.0,
-        "escalated": false,
-        "rationale": "rubric deferred to final consolidated step"
-       },
-       "step5": {
-        "step_id": "step5",
-        "verdict": "fail",
-        "score": 0.52,
-        "artifacts": {
-         "passed": true,
-         "checks": {},
-         "failures": []
-        },
-        "g_eval": {
-         "score": 1.0,
-         "reasoning": "المخرج عبارة عن تعليمات برمجية أو خطة عمل (Plan) داخل ملف نصي، ولا يحتوي على تحليل فعلي للبيانات، أو أرقام، أو كشف لأنماط احتيال كما هو مطلوب في المعايير.",
-         "criteria": {
-          "سلامة التحليل": 1,
-          "جودة الكشف": 1,
-          "تصنيف الخطر": 1,
-          "قابلية التنفيذ": 2,
-          "الدقة الرقمية": 1
-         },
-         "escalated": false,
-         "verdict": "fail"
-        },
-        "hybrid": {
-         "score": 3.0
-        },
-        "weighted": 0.52,
-        "escalated": false,
-        "rationale": "المخرج عبارة عن تعليمات برمجية أو خطة عمل (Plan) داخل ملف نصي، ولا يحتوي على تحليل فعلي للبيانات، أو أرقام، أو كشف لأنماط احتيال كما هو مطلوب في المعايير."
-       }
+  "note": "Adam Prism system-efficiency benchmark (RTX 3060 12GB, local Ollama, $0). Mode A=commander does everything; Mode B=two-role split (commander gemma4:12b decides, executor qwen2.5-coder:14b generates/repairs). External verify runs each generated *test* file explicitly.",
+  "runs": [
+    {
+      "goal": "word_count",
+      "mode": "gemma(fallback)",
+      "wall_secs": 191.1,
+      "plan_secs": 24.6,
+      "scenario_secs": 166.5,
+      "nodes": 6,
+      "result_success": true,
+      "deep_checks": 2,
+      "spec_audits": 2,
+      "spec_repairs": 1,
+      "spec_failures": 1,
+      "files_repaired": [
+        "tests_word_count.py",
+        "word_count.py"
+      ],
+      "verify": {
+        "py_compile": true,
+        "pytest_pass": true,
+        "pytest_passed": 5,
+        "pytest_failed": 0
       },
-      "hybrid": {
-       "score": 3.0,
-       "tool_selection": {
-        "score": 3,
-        "rationale": "exact match",
-        "breakdown": {
-         "called": [
-          "code_sandbox",
-          "list_files",
-          "llm_analyze",
-          "template_render"
-         ],
-         "expected": [
-          "code_sandbox",
-          "list_files",
-          "llm_analyze",
-          "template_render"
-         ],
-         "missing": [],
-         "extra": []
+      "usage_tokens": {
+        "gemma4:12b": {
+          "requests": 12,
+          "prompt_tokens": 16449,
+          "eval_tokens": 5172,
+          "total_duration_ns": 189852305985
         }
-       },
-       "dependency_adherence": {
-        "score": 3,
-        "checks": [
-         {
-          "step": "step1",
-          "missing_deps": []
-         },
-         {
-          "step": "step2",
-          "missing_deps": []
-         },
-         {
-          "step": "step3",
-          "missing_deps": []
-         },
-         {
-          "step": "step4",
-          "missing_deps": []
-         },
-         {
-          "step": "step5",
-          "missing_deps": []
-         }
-        ]
-       }
-      },
-      "artifacts": {
-       "required": {
-        "step3": {
-         "passed": true,
-         "checks": {},
-         "failures": []
-        },
-        "step4": {
-         "passed": true,
-         "checks": {},
-         "failures": []
-        },
-        "step5": {
-         "passed": true,
-         "checks": {},
-         "failures": []
-        }
-       },
-       "optional": {
-        "passed": false,
-        "checks": {
-         "json_valid": {
-          "ok": true,
-          "detail": "json_valid → True",
-          "message": "ملف الأنماط يجب أن يكون JSON"
-         },
-         "file_exists": {
-          "ok": false,
-          "detail": "file_exists /tmp/trace_data_audit_fraud_p_wli2gz/final_report.md → False",
-          "message": "التقرير النهائي مطلوب"
-         }
-        },
-        "failures": [
-         "file_exists: التقرير النهائي مطلوب"
-        ]
-       }
       }
-     },
-     "stepV": {
-      "verdict": "fail",
-      "overall_score": 0.2533333333333333,
-      "evaluations": null,
-      "hybrid": {
-       "score": 1.0,
-       "tool_selection": {
-        "score": 1,
-        "rationale": "called subset (missing: ['llm_analyze', 'template_render'])",
-        "breakdown": {
-         "called": [
-          "code_sandbox",
-          "list_files"
-         ],
-         "expected": [
-          "code_sandbox",
-          "list_files",
-          "llm_analyze",
-          "template_render"
-         ],
-         "missing": [
-          "llm_analyze",
-          "template_render"
-         ],
-         "extra": []
-        }
-       },
-       "dependency_adherence": {
-        "score": 3,
-        "checks": [
-         {
-          "step": "step1",
-          "missing_deps": []
-         },
-         {
-          "step": "step2",
-          "missing_deps": []
-         }
-        ]
-       }
+    },
+    {
+      "goal": "fib",
+      "mode": "gemma(fallback)",
+      "wall_secs": 147.0,
+      "plan_secs": 25.8,
+      "scenario_secs": 121.2,
+      "nodes": 6,
+      "result_success": true,
+      "deep_checks": 2,
+      "spec_audits": 2,
+      "spec_repairs": 1,
+      "spec_failures": 1,
+      "files_repaired": [
+        "fib.py",
+        "tests_fib.py"
+      ],
+      "verify": {
+        "py_compile": true,
+        "pytest_pass": true,
+        "pytest_passed": 2,
+        "pytest_failed": 0
       },
-      "artifacts": {
-       "required": {
-        "passed": true,
-        "checks": {},
-        "failures": []
-       },
-       "optional": {
-        "passed": false,
-        "checks": {
-         "json_valid": {
-          "ok": true,
-          "detail": "json_valid → True",
-          "message": "ملف الأنماط يجب أن يكون JSON"
-         },
-         "file_exists": {
-          "ok": false,
-          "detail": "file_exists /tmp/trace_data_audit_fraud_p_wli2gz/final_report.md → False",
-          "message": "التقرير النهائي مطلوب"
-         }
-        },
-        "failures": [
-         "file_exists: التقرير النهائي مطلوب"
-        ]
-       }
+      "usage_tokens": {
+        "gemma4:12b": {
+          "requests": 23,
+          "prompt_tokens": 30556,
+          "eval_tokens": 9105,
+          "total_duration_ns": 335770710900
+        }
       }
-     }
     },
-    "v13": {
-     "deep_checks": 4,
-     "deep_checks_failed": 0,
-     "repairs": 0,
-     "grounding_used": false,
-     "signatures": [],
-     "repair_outcomes": [],
-     "spec_audits": 2,
-     "spec_repairs": 0,
-     "spec_failures": 0
+    {
+      "goal": "word_count",
+      "mode": "qwen2.5-coder:14b",
+      "wall_secs": 166.6,
+      "plan_secs": 22.4,
+      "scenario_secs": 144.2,
+      "nodes": 6,
+      "result_success": true,
+      "deep_checks": 2,
+      "spec_audits": 2,
+      "spec_repairs": 1,
+      "spec_failures": 1,
+      "files_repaired": [
+        "tests_word_count.py",
+        "word_count.py"
+      ],
+      "verify": {
+        "py_compile": true,
+        "pytest_pass": true,
+        "pytest_passed": 3,
+        "pytest_failed": 0
+      },
+      "usage_tokens": {
+        "gemma4:12b": {
+          "requests": 8,
+          "prompt_tokens": 9212,
+          "eval_tokens": 2895,
+          "total_duration_ns": 120865327494
+        },
+        "qwen2.5-coder:14b": {
+          "requests": 4,
+          "prompt_tokens": 5033,
+          "eval_tokens": 832,
+          "total_duration_ns": 43413774109
+        }
+      }
+    },
+    {
+      "goal": "fib",
+      "mode": "qwen2.5-coder:14b",
+      "wall_secs": 191.3,
+      "plan_secs": 24.9,
+      "scenario_secs": 166.4,
+      "nodes": 6,
+      "result_success": true,
+      "deep_checks": 2,
+      "spec_audits": 2,
+      "spec_repairs": 1,
+      "spec_failures": 1,
+      "files_repaired": [
+        "fib.py",
+        "tests_fib.py"
+      ],
+      "verify": {
+        "py_compile": true,
+        "pytest_pass": true,
+        "pytest_passed": 2,
+        "pytest_failed": 0
+      },
+      "usage_tokens": {
+        "gemma4:12b": {
+          "requests": 16,
+          "prompt_tokens": 18733,
+          "eval_tokens": 5761,
+          "total_duration_ns": 243082437579
+        },
+        "qwen2.5-coder:14b": {
+          "requests": 9,
+          "prompt_tokens": 11561,
+          "eval_tokens": 2194,
+          "total_duration_ns": 110019048768
+        }
+      }
     }
-   },
-   "v13": {
-    "deep_checks": 4,
-    "deep_checks_failed": 0,
-    "repairs": 0,
-    "grounding_used": false,
-    "signatures": [],
-    "repair_outcomes": [],
-    "spec_audits": 2,
-    "spec_repairs": 0,
-    "spec_failures": 0
-   },
-   "swaps": {
-    "count": 13,
-    "models": {
-     "qwen2.5-coder:14b": 6,
-     "gemma4:12b": 7
-    }
-   },
-   "llm_attribution": {
-    "step3 code_sandbox (qwen)": {
-     "calls": 3,
-     "prompt_tokens": 8088,
-     "eval_tokens": 911
-    },
-    "step4 llm_analyze (qwen)": {
-     "calls": 3,
-     "prompt_tokens": 1902,
-     "eval_tokens": 209
-    },
-    "step2 code_sandbox (qwen)": {
-     "calls": 1,
-     "prompt_tokens": 2694,
-     "eval_tokens": 477
-    },
-    "stepR output_evaluator (gemma)": {
-     "calls": 3,
-     "prompt_tokens": 4560,
-     "eval_tokens": 404
-    },
-    "stepV verify_global (gemma)": {
-     "calls": 1,
-     "prompt_tokens": 1520,
-     "eval_tokens": 136
-    },
-    "step0 plan_generator (gemma)": {
-     "calls": 1,
-     "prompt_tokens": 652,
-     "eval_tokens": 402
-    },
-    "step0r plan_reviewer (gemma)": {
-     "calls": 1,
-     "prompt_tokens": 1451,
-     "eval_tokens": 31
-    }
-   },
-   "review_verdicts": [
-    {
-     "attempt": 1,
-     "verdict": "fail",
-     "overall_score": 0.52
-    },
-    {
-     "attempt": 2,
-     "verdict": "fail",
-     "overall_score": null
-    },
-    {
-     "attempt": 3,
-     "verdict": "fail",
-     "overall_score": 0.52
-    }
-   ]
-  },
-  {
-   "scenario": "data_audit_fraud",
-   "result_success": true,
-   "steps": "9/9",
-   "wall_s": 285.1,
-   "swap_evictions": 13,
-   "llm_calls": 11,
-   "spec_audits": 2,
-   "spec_repairs": 0,
-   "spec_failures": 0,
-   "deep_checks": 3,
-   "deep_checks_failed": 0,
-   "deliverables": [
-    "docs/evidence/final_report_run7.md",
-    "docs/evidence/data_summary_run7.json"
-   ],
-   "fault_history": [
-    {
-     "stage": "baseline stub",
-     "success": false,
-     "steps": "6/9",
-     "wall_s": 143.4,
-     "cause": "template_render stub returned prompt; reviewer 0.52; replan regenerated code not report; honest halt"
-    },
-    {
-     "stage": "after template fix",
-     "success": false,
-     "steps": "6/9",
-     "wall_s": 690.9,
-     "cause": "spec judge honestly flagged zero-defaults report"
-    },
-    {
-     "stage": "final grounded",
-     "success": true,
-     "steps": "9/9",
-     "wall_s": 285.1,
-     "cause": "deterministic report renderer + grounding + data_summary.json + reference-spec goal"
-    }
-   ],
-   "fixes": [
-    "template_force_llm attribute",
-    "_render_template_report deterministic renderer + min_len appendix",
-    "_data_grounding (stdlib csv/json: rows, missing, duplicates, multi-recipient heuristic, sum/mean/max)",
-    "data_summary.json persistence",
-    "_reference_spec goal augmentation for SpecConformanceJudge + same-goal repair"
-   ]
-  }
- ],
- "audit_registry": {
-  "note": "Independent, deterministic-oracle audit registry: 10 data-verification scenarios (buy/sell-audit goal family) run on the production two-role pipeline (commander gemma4:12b plans/judges; executor qwen2.5-coder:14b generates the report via code_sandbox + template_render), each through the same deterministic report renderer. Every scenario has an independent oracle that verifies the produced report's answer against the TRUE synthetic population (exact-verbatim substring match on the confirmed-patterns line plus facts section), beyond the LLM rubric. All 10 single-shot runs (pass@1) passed the oracle 8/8 and system 9/9. Aggregate results below; per-task raw JSON in docs/evidence/registry_final/out/results_<task>.json.",
-  "pass_at_1": "10/10 (100%)",
-  "oracle_checks_total": "80/80",
-  "aggregate_wall_s": 1404.7,
-  "wall_mean_s": 140.5,
-  "wall_min_s": 121.9,
-  "wall_max_s": 184.8,
-  "swap_evictions_mean": 11.5,
-  "swap_evictions_total": 115,
-  "swap_models_total": {
-   "gemma4:12b": 63,
-   "qwen2.5-coder:14b": 52
-  },
-  "llm_calls_total_est": 120,
-  "financial_cost": "$0.00 (100% local)",
-  "results": [
-   {
-    "task": "dup_payments",
-    "system_success": true,
-    "oracle_pass": true,
-    "oracle_checks": 8,
-    "oracle_total": 8,
-    "steps": "9/9",
-    "wall_s": 150.8,
-    "swap_evictions": 11,
-    "swap_models": {
-     "gemma4:12b": 6,
-     "qwen2.5-coder:14b": 5
-    },
-    "spec_audits": 0,
-    "spec_repairs": 0,
-    "spec_failures": 0,
-    "deep_checks": 0,
-    "goal": "اكتشاف فواتير مكررة تُدفع لأكثر من مورد"
-   },
-   {
-    "task": "high_value",
-    "system_success": true,
-    "oracle_pass": true,
-    "oracle_checks": 8,
-    "oracle_total": 8,
-    "steps": "9/9",
-    "wall_s": 138.6,
-    "swap_evictions": 11,
-    "swap_models": {
-     "gemma4:12b": 6,
-     "qwen2.5-coder:14b": 5
-    },
-    "spec_audits": 0,
-    "spec_repairs": 0,
-    "spec_failures": 0,
-    "deep_checks": 0,
-    "goal": "كشف المعاملات عالية القيمة القابلة للمراجعة"
-   },
-   {
-    "task": "missing_fields",
-    "system_success": true,
-    "oracle_pass": true,
-    "oracle_checks": 8,
-    "oracle_total": 8,
-    "steps": "9/9",
-    "wall_s": 184.8,
-    "swap_evictions": 16,
-    "swap_models": {
-     "gemma4:12b": 9,
-     "qwen2.5-coder:14b": 7
-    },
-    "spec_audits": 0,
-    "spec_repairs": 0,
-    "spec_failures": 0,
-    "deep_checks": 0,
-    "goal": "فحص الحقول الناقصة في قاعدة عملاء"
-   },
-   {
-    "task": "multi_recipient",
-    "system_success": true,
-    "oracle_pass": true,
-    "oracle_checks": 8,
-    "oracle_total": 8,
-    "steps": "9/9",
-    "wall_s": 121.9,
-    "swap_evictions": 11,
-    "swap_models": {
-     "gemma4:12b": 6,
-     "qwen2.5-coder:14b": 5
-    },
-    "spec_audits": 0,
-    "spec_repairs": 0,
-    "spec_failures": 0,
-    "deep_checks": 0,
-    "goal": "رصد رسائل متعدد المستلمين ذوي الصلاحيات"
-   },
-   {
-    "task": "budget_util",
-    "system_success": true,
-    "oracle_pass": true,
-    "oracle_checks": 8,
-    "oracle_total": 8,
-    "steps": "9/9",
-    "wall_s": 140.6,
-    "swap_evictions": 11,
-    "swap_models": {
-     "gemma4:12b": 6,
-     "qwen2.5-coder:14b": 5
-    },
-    "spec_audits": 0,
-    "spec_repairs": 0,
-    "spec_failures": 0,
-    "deep_checks": 0,
-    "goal": "تقييم فاقد الاستغلال الميزاني على مستوى الفرق"
-   },
-   {
-    "task": "payroll_recon",
-    "system_success": true,
-    "oracle_pass": true,
-    "oracle_checks": 8,
-    "oracle_total": 8,
-    "steps": "9/9",
-    "wall_s": 138.3,
-    "swap_evictions": 11,
-    "swap_models": {
-     "gemma4:12b": 6,
-     "qwen2.5-coder:14b": 5
-    },
-    "spec_audits": 0,
-    "spec_repairs": 0,
-    "spec_failures": 0,
-    "deep_checks": 0,
-    "goal": "مراجعة قوائم الرواتب عن قيم شاذة"
-   },
-   {
-    "task": "ledger_balance",
-    "system_success": true,
-    "oracle_pass": true,
-    "oracle_checks": 8,
-    "oracle_total": 8,
-    "steps": "9/9",
-    "wall_s": 130.0,
-    "swap_evictions": 11,
-    "swap_models": {
-     "gemma4:12b": 6,
-     "qwen2.5-coder:14b": 5
-    },
-    "spec_audits": 0,
-    "spec_repairs": 0,
-    "spec_failures": 0,
-    "deep_checks": 0,
-    "goal": "تحقق من توازن دفتر الأستاذ بين الوارد والصادر"
-   },
-   {
-    "task": "empty_category",
-    "system_success": true,
-    "oracle_pass": true,
-    "oracle_checks": 8,
-    "oracle_total": 8,
-    "steps": "9/9",
-    "wall_s": 125.2,
-    "swap_evictions": 11,
-    "swap_models": {
-     "gemma4:12b": 6,
-     "qwen2.5-coder:14b": 5
-    },
-    "spec_audits": 0,
-    "spec_repairs": 0,
-    "spec_failures": 0,
-    "deep_checks": 0,
-    "goal": "رصد النفقات في فئة فارغة أو غير مصنفة"
-   },
-   {
-    "task": "sales_growth",
-    "system_success": true,
-    "oracle_pass": true,
-    "oracle_checks": 8,
-    "oracle_total": 8,
-    "steps": "9/9",
-    "wall_s": 125.3,
-    "swap_evictions": 11,
-    "swap_models": {
-     "gemma4:12b": 6,
-     "qwen2.5-coder:14b": 5
-    },
-    "spec_audits": 0,
-    "spec_repairs": 0,
-    "spec_failures": 0,
-    "deep_checks": 0,
-    "goal": "قياس انخفاض نمو المبيعات الشهري"
-   },
-   {
-    "task": "dup_pairs",
-    "system_success": true,
-    "oracle_pass": true,
-    "oracle_checks": 8,
-    "oracle_total": 8,
-    "steps": "9/9",
-    "wall_s": 149.2,
-    "swap_evictions": 11,
-    "swap_models": {
-     "gemma4:12b": 6,
-     "qwen2.5-coder:14b": 5
-    },
-    "spec_audits": 0,
-    "spec_repairs": 0,
-    "spec_failures": 0,
-    "deep_checks": 0,
-    "goal": "اكتشاف أزواج السجلات المكررة عبر مفاتيح متعددة"
-   }
   ],
-  "controlled_study_exp3": {
-   "note": "Controlled decomposition (EXP-3): same 10 tasks, same seeds, same deterministic oracle. PASS = pipeline success AND oracle green. System rep1 = the archived clean run; reps 2-3 = fresh independent runs for this study. 'Oracle' = green checks / 80.",
-   "arms": {
-    "system_rep1": {
-     "pass_at_1": "10/10",
-     "oracle": "80/80",
-     "median_wall_s": 138.4
+  "trace_runs": [
+    {
+      "scenario": "data_audit_fraud",
+      "note": "live pipeline trace on a built-in scenario (not a benchmark goal): ScenarioLoader -> StepExecutor (commander gemma4:12b plan/judge, executor qwen2.5-coder:14b code), verification loop + replan review loop + spec judge. Honest outcome: system REFUSED pass (report scored 0.52 -> 3 replan cycles -> max_retries -> fallback none).",
+      "result_success": false,
+      "wall_secs": 143.4,
+      "steps_completed": 6,
+      "steps_total": 9,
+      "result_errors": [
+        "Step step3: exceeded max_retries (2) after review failures → fallback none",
+        "Step step4: exceeded max_retries (2) after review failures → fallback none",
+        "Step step5: exceeded max_retries (2) after review failures → fallback none"
+      ],
+      "metrics": {
+        "progress": {
+          "total": 9,
+          "completed": 6,
+          "failed": 3,
+          "running": 0,
+          "skipped": 0,
+          "progress_pct": 66.66666666666666,
+          "status": "failed"
+        },
+        "step_durations": {
+          "step0": 14374.03655052185,
+          "step0r": 3220.043182373047,
+          "step1": 1.4345645904541016,
+          "step2": 23482.550382614136,
+          "step3": 17742.014408111572,
+          "step4": 4791.185140609741,
+          "step5": 1.402139663696289,
+          "stepR": 12741.527318954468,
+          "stepV": 5185.387849807739
+        },
+        "replans": {
+          "step3": 3,
+          "step4": 3,
+          "step5": 3
+        },
+        "compaction": {
+          "summarized": 0,
+          "total_chars_saved": 0,
+          "enabled": false
+        },
+        "cost": {
+          "llm_calls": 13,
+          "prompt_chars": 32240,
+          "output_chars": 7775,
+          "est_tokens": 10003
+        },
+        "checkpoints": [],
+        "evaluation": {
+          "stepR": {
+            "verdict": "fail",
+            "overall_score": 0.52,
+            "evaluations": {
+              "step3": {
+                "step_id": "step3",
+                "verdict": "pass",
+                "score": 1.0,
+                "artifacts": {
+                  "passed": true,
+                  "checks": {},
+                  "failures": []
+                },
+                "g_eval": {
+                  "score": null,
+                  "reasoning": "الحكم بالـ rubric مؤجل إلى الخطوة النهائية المتكاملة",
+                  "criteria": {},
+                  "escalated": false,
+                  "verdict": "pass"
+                },
+                "hybrid": {
+                  "score": 3.0
+                },
+                "weighted": 1.0,
+                "escalated": false,
+                "rationale": "rubric deferred to final consolidated step"
+              },
+              "step4": {
+                "step_id": "step4",
+                "verdict": "pass",
+                "score": 1.0,
+                "artifacts": {
+                  "passed": true,
+                  "checks": {},
+                  "failures": []
+                },
+                "g_eval": {
+                  "score": null,
+                  "reasoning": "الحكم بالـ rubric مؤجل إلى الخطوة النهائية المتكاملة",
+                  "criteria": {},
+                  "escalated": false,
+                  "verdict": "pass"
+                },
+                "hybrid": {
+                  "score": 3.0
+                },
+                "weighted": 1.0,
+                "escalated": false,
+                "rationale": "rubric deferred to final consolidated step"
+              },
+              "step5": {
+                "step_id": "step5",
+                "verdict": "fail",
+                "score": 0.52,
+                "artifacts": {
+                  "passed": true,
+                  "checks": {},
+                  "failures": []
+                },
+                "g_eval": {
+                  "score": 1.0,
+                  "reasoning": "المخرج عبارة عن تعليمات برمجية أو خطة عمل (Plan) داخل ملف نصي، ولا يحتوي على تحليل فعلي للبيانات، أو أرقام، أو كشف لأنماط احتيال كما هو مطلوب في المعايير.",
+                  "criteria": {
+                    "سلامة التحليل": 1,
+                    "جودة الكشف": 1,
+                    "تصنيف الخطر": 1,
+                    "قابلية التنفيذ": 2,
+                    "الدقة الرقمية": 1
+                  },
+                  "escalated": false,
+                  "verdict": "fail"
+                },
+                "hybrid": {
+                  "score": 3.0
+                },
+                "weighted": 0.52,
+                "escalated": false,
+                "rationale": "المخرج عبارة عن تعليمات برمجية أو خطة عمل (Plan) داخل ملف نصي، ولا يحتوي على تحليل فعلي للبيانات، أو أرقام، أو كشف لأنماط احتيال كما هو مطلوب في المعايير."
+              }
+            },
+            "hybrid": {
+              "score": 3.0,
+              "tool_selection": {
+                "score": 3,
+                "rationale": "exact match",
+                "breakdown": {
+                  "called": [
+                    "code_sandbox",
+                    "list_files",
+                    "llm_analyze",
+                    "template_render"
+                  ],
+                  "expected": [
+                    "code_sandbox",
+                    "list_files",
+                    "llm_analyze",
+                    "template_render"
+                  ],
+                  "missing": [],
+                  "extra": []
+                }
+              },
+              "dependency_adherence": {
+                "score": 3,
+                "checks": [
+                  {
+                    "step": "step1",
+                    "missing_deps": []
+                  },
+                  {
+                    "step": "step2",
+                    "missing_deps": []
+                  },
+                  {
+                    "step": "step3",
+                    "missing_deps": []
+                  },
+                  {
+                    "step": "step4",
+                    "missing_deps": []
+                  },
+                  {
+                    "step": "step5",
+                    "missing_deps": []
+                  }
+                ]
+              }
+            },
+            "artifacts": {
+              "required": {
+                "step3": {
+                  "passed": true,
+                  "checks": {},
+                  "failures": []
+                },
+                "step4": {
+                  "passed": true,
+                  "checks": {},
+                  "failures": []
+                },
+                "step5": {
+                  "passed": true,
+                  "checks": {},
+                  "failures": []
+                }
+              },
+              "optional": {
+                "passed": false,
+                "checks": {
+                  "json_valid": {
+                    "ok": true,
+                    "detail": "json_valid → True",
+                    "message": "ملف الأنماط يجب أن يكون JSON"
+                  },
+                  "file_exists": {
+                    "ok": false,
+                    "detail": "file_exists /tmp/trace_data_audit_fraud_p_wli2gz/final_report.md → False",
+                    "message": "التقرير النهائي مطلوب"
+                  }
+                },
+                "failures": [
+                  "file_exists: التقرير النهائي مطلوب"
+                ]
+              }
+            }
+          },
+          "stepV": {
+            "verdict": "fail",
+            "overall_score": 0.2533333333333333,
+            "evaluations": null,
+            "hybrid": {
+              "score": 1.0,
+              "tool_selection": {
+                "score": 1,
+                "rationale": "called subset (missing: ['llm_analyze', 'template_render'])",
+                "breakdown": {
+                  "called": [
+                    "code_sandbox",
+                    "list_files"
+                  ],
+                  "expected": [
+                    "code_sandbox",
+                    "list_files",
+                    "llm_analyze",
+                    "template_render"
+                  ],
+                  "missing": [
+                    "llm_analyze",
+                    "template_render"
+                  ],
+                  "extra": []
+                }
+              },
+              "dependency_adherence": {
+                "score": 3,
+                "checks": [
+                  {
+                    "step": "step1",
+                    "missing_deps": []
+                  },
+                  {
+                    "step": "step2",
+                    "missing_deps": []
+                  }
+                ]
+              }
+            },
+            "artifacts": {
+              "required": {
+                "passed": true,
+                "checks": {},
+                "failures": []
+              },
+              "optional": {
+                "passed": false,
+                "checks": {
+                  "json_valid": {
+                    "ok": true,
+                    "detail": "json_valid → True",
+                    "message": "ملف الأنماط يجب أن يكون JSON"
+                  },
+                  "file_exists": {
+                    "ok": false,
+                    "detail": "file_exists /tmp/trace_data_audit_fraud_p_wli2gz/final_report.md → False",
+                    "message": "التقرير النهائي مطلوب"
+                  }
+                },
+                "failures": [
+                  "file_exists: التقرير النهائي مطلوب"
+                ]
+              }
+            }
+          }
+        },
+        "v13": {
+          "deep_checks": 4,
+          "deep_checks_failed": 0,
+          "repairs": 0,
+          "grounding_used": false,
+          "signatures": [],
+          "repair_outcomes": [],
+          "spec_audits": 2,
+          "spec_repairs": 0,
+          "spec_failures": 0
+        }
+      },
+      "v13": {
+        "deep_checks": 4,
+        "deep_checks_failed": 0,
+        "repairs": 0,
+        "grounding_used": false,
+        "signatures": [],
+        "repair_outcomes": [],
+        "spec_audits": 2,
+        "spec_repairs": 0,
+        "spec_failures": 0
+      },
+      "swaps": {
+        "count": 13,
+        "models": {
+          "qwen2.5-coder:14b": 6,
+          "gemma4:12b": 7
+        }
+      },
+      "llm_attribution": {
+        "step3 code_sandbox (qwen)": {
+          "calls": 3,
+          "prompt_tokens": 8088,
+          "eval_tokens": 911
+        },
+        "step4 llm_analyze (qwen)": {
+          "calls": 3,
+          "prompt_tokens": 1902,
+          "eval_tokens": 209
+        },
+        "step2 code_sandbox (qwen)": {
+          "calls": 1,
+          "prompt_tokens": 2694,
+          "eval_tokens": 477
+        },
+        "stepR output_evaluator (gemma)": {
+          "calls": 3,
+          "prompt_tokens": 4560,
+          "eval_tokens": 404
+        },
+        "stepV verify_global (gemma)": {
+          "calls": 1,
+          "prompt_tokens": 1520,
+          "eval_tokens": 136
+        },
+        "step0 plan_generator (gemma)": {
+          "calls": 1,
+          "prompt_tokens": 652,
+          "eval_tokens": 402
+        },
+        "step0r plan_reviewer (gemma)": {
+          "calls": 1,
+          "prompt_tokens": 1451,
+          "eval_tokens": 31
+        }
+      },
+      "review_verdicts": [
+        {
+          "attempt": 1,
+          "verdict": "fail",
+          "overall_score": 0.52
+        },
+        {
+          "attempt": 2,
+          "verdict": "fail",
+          "overall_score": null
+        },
+        {
+          "attempt": 3,
+          "verdict": "fail",
+          "overall_score": 0.52
+        }
+      ]
     },
-    "system_rep2": {
-     "pass_at_1": "10/10",
-     "oracle": "80/80",
-     "median_wall_s": 127.2
-    },
-    "system_rep3": {
-     "pass_at_1": "10/10",
-     "oracle": "80/80",
-     "median_wall_s": 126.3
-    },
-    "grounding_only_no_verify": {
-     "pass_at_1": "0/10",
-     "oracle": "40/80",
-     "median_wall_s": 41.6
-    },
-    "no_grounded_classes_ablate": {
-     "pass_at_1": "7/10",
-     "oracle": "78/80",
-     "median_wall_s": 146.4
-    },
-    "raw_model_free": {
-     "pass_at_1": "0/10",
-     "oracle": "60/80",
-     "median_wall_s": 12.7
+    {
+      "scenario": "data_audit_fraud",
+      "result_success": true,
+      "steps": "9/9",
+      "wall_s": 285.1,
+      "swap_evictions": 13,
+      "llm_calls": 11,
+      "spec_audits": 2,
+      "spec_repairs": 0,
+      "spec_failures": 0,
+      "deep_checks": 3,
+      "deep_checks_failed": 0,
+      "deliverables": [
+        "final_report.md",
+        "data_summary.json"
+      ],
+      "fault_history": [
+        {
+          "stage": "baseline stub",
+          "success": false,
+          "steps": "6/9",
+          "wall_s": 143.4,
+          "cause": "template_render stub returned prompt; reviewer 0.52; replan regenerated code not report; honest halt"
+        },
+        {
+          "stage": "after template fix",
+          "success": false,
+          "steps": "6/9",
+          "wall_s": 690.9,
+          "cause": "spec judge honestly flagged zero-defaults report"
+        },
+        {
+          "stage": "final grounded",
+          "success": true,
+          "steps": "9/9",
+          "wall_s": 285.1,
+          "cause": "deterministic report renderer + grounding + data_summary.json + reference-spec goal"
+        }
+      ],
+      "fixes": [
+        "template_force_llm attribute",
+        "_render_template_report deterministic renderer + min_len appendix",
+        "_data_grounding (stdlib csv/json: rows, missing, duplicates, multi-recipient heuristic, sum/mean/max)",
+        "data_summary.json persistence",
+        "_reference_spec goal augmentation for SpecConformanceJudge + same-goal repair"
+      ]
     }
-   },
-   "ablate_failure_modes": [
-    "missing_fields: honest halt (refused ungrounded figure)",
-    "empty_category: SILENT ERROR - shipped wrong count with system_success=True, caught only by oracle",
-    "sales_growth: conservative halt on already oracle-correct artifacts (8/8)"
-   ],
-   "keys": {
-    "stripped_in_ablate": [
-     "missing_values",
-     "overspend",
-     "category_sums",
-     "growth_pct"
-    ]
-   }
-  }
- },
- "code_registry": {
-  "note": "Independent, executable-oracle code-generation registry: 5 scenarios (SOFTWARE_ENGINEERING family) run on the production two-role pipeline (commander gemma4:12b plans/judges; executor qwen2.5-coder:14b writes code via WRITE_FILE). Each task receives its exact requirement spec; the oracle is executable: py_compile + subprocess import of the produced module.py + deterministic hidden cases (expected values computed from a reference implementation) + final_report.md existence -- beyond the LLM rubric. 3 independent reps x 5 tasks = 15 runs, all single-shot. The review gate targets the code-review product rather than report prose; report rendering is deterministic (grounding evidence + artifacts) without LLM re-writes. An early pilot without an injected spec (payroll tax brackets invented from memory) failed the oracle 0/9 and was honestly rejected. Aggregate results below; per-rep raw JSON in docs/evidence/registry_final/f2_out/results_f2_<rep>.json.",
-  "pass_at_1": "5/5 (100%)",
-  "pass_at_2": "5/5 (100%)",
-  "pass_at_3": "5/5 (100%)",
-  "runs_total": "15/15 (100%)",
-  "oracle_checks_total": "75/75 (100%)",
-  "wall_mean_s": 74.34,
-  "wall_med_s": 63.6,
-  "swap_evictions_mean": 6.866666666666666,
-  "swap_models_total": {
-   "gemma4:12b": 36,
-   "qwen2.5-coder:14b": 67
+  ],
+  "audit_registry": {
+    "note": "Independent, deterministic-oracle audit registry: 10 data-verification scenarios (buy/sell-audit goal family) run on the production two-role pipeline (commander gemma4:12b plans/judges; executor qwen2.5-coder:14b generates the report via code_sandbox + template_render), each through the same deterministic report renderer. Every scenario has an independent oracle that verifies the produced report's answer against the TRUE synthetic population (exact-verbatim substring match on the confirmed-patterns line plus facts section), beyond the LLM rubric. All 10 single-shot runs (pass@1) passed the oracle 8/8 and system 9/9. Aggregate results below; per-task raw JSON archived in the companion research log.json.",
+    "pass_at_1": "10/10 (100%)",
+    "oracle_checks_total": "80/80",
+    "aggregate_wall_s": 1404.7,
+    "wall_mean_s": 140.5,
+    "wall_min_s": 121.9,
+    "wall_max_s": 184.8,
+    "swap_evictions_mean": 11.5,
+    "swap_evictions_total": 115,
+    "swap_models_total": {
+      "gemma4:12b": 63,
+      "qwen2.5-coder:14b": 52
+    },
+    "llm_calls_total_est": 120,
+    "financial_cost": "$0.00 (100% local)",
+    "results": [
+      {
+        "task": "dup_payments",
+        "system_success": true,
+        "oracle_pass": true,
+        "oracle_checks": 8,
+        "oracle_total": 8,
+        "steps": "9/9",
+        "wall_s": 150.8,
+        "swap_evictions": 11,
+        "swap_models": {
+          "gemma4:12b": 6,
+          "qwen2.5-coder:14b": 5
+        },
+        "spec_audits": 0,
+        "spec_repairs": 0,
+        "spec_failures": 0,
+        "deep_checks": 0,
+        "goal": "اكتشاف فواتير مكررة تُدفع لأكثر من مورد"
+      },
+      {
+        "task": "high_value",
+        "system_success": true,
+        "oracle_pass": true,
+        "oracle_checks": 8,
+        "oracle_total": 8,
+        "steps": "9/9",
+        "wall_s": 138.6,
+        "swap_evictions": 11,
+        "swap_models": {
+          "gemma4:12b": 6,
+          "qwen2.5-coder:14b": 5
+        },
+        "spec_audits": 0,
+        "spec_repairs": 0,
+        "spec_failures": 0,
+        "deep_checks": 0,
+        "goal": "كشف المعاملات عالية القيمة القابلة للمراجعة"
+      },
+      {
+        "task": "missing_fields",
+        "system_success": true,
+        "oracle_pass": true,
+        "oracle_checks": 8,
+        "oracle_total": 8,
+        "steps": "9/9",
+        "wall_s": 184.8,
+        "swap_evictions": 16,
+        "swap_models": {
+          "gemma4:12b": 9,
+          "qwen2.5-coder:14b": 7
+        },
+        "spec_audits": 0,
+        "spec_repairs": 0,
+        "spec_failures": 0,
+        "deep_checks": 0,
+        "goal": "فحص الحقول الناقصة في قاعدة عملاء"
+      },
+      {
+        "task": "multi_recipient",
+        "system_success": true,
+        "oracle_pass": true,
+        "oracle_checks": 8,
+        "oracle_total": 8,
+        "steps": "9/9",
+        "wall_s": 121.9,
+        "swap_evictions": 11,
+        "swap_models": {
+          "gemma4:12b": 6,
+          "qwen2.5-coder:14b": 5
+        },
+        "spec_audits": 0,
+        "spec_repairs": 0,
+        "spec_failures": 0,
+        "deep_checks": 0,
+        "goal": "رصد رسائل متعدد المستلمين ذوي الصلاحيات"
+      },
+      {
+        "task": "budget_util",
+        "system_success": true,
+        "oracle_pass": true,
+        "oracle_checks": 8,
+        "oracle_total": 8,
+        "steps": "9/9",
+        "wall_s": 140.6,
+        "swap_evictions": 11,
+        "swap_models": {
+          "gemma4:12b": 6,
+          "qwen2.5-coder:14b": 5
+        },
+        "spec_audits": 0,
+        "spec_repairs": 0,
+        "spec_failures": 0,
+        "deep_checks": 0,
+        "goal": "تقييم فاقد الاستغلال الميزاني على مستوى الفرق"
+      },
+      {
+        "task": "payroll_recon",
+        "system_success": true,
+        "oracle_pass": true,
+        "oracle_checks": 8,
+        "oracle_total": 8,
+        "steps": "9/9",
+        "wall_s": 138.3,
+        "swap_evictions": 11,
+        "swap_models": {
+          "gemma4:12b": 6,
+          "qwen2.5-coder:14b": 5
+        },
+        "spec_audits": 0,
+        "spec_repairs": 0,
+        "spec_failures": 0,
+        "deep_checks": 0,
+        "goal": "مراجعة قوائم الرواتب عن قيم شاذة"
+      },
+      {
+        "task": "ledger_balance",
+        "system_success": true,
+        "oracle_pass": true,
+        "oracle_checks": 8,
+        "oracle_total": 8,
+        "steps": "9/9",
+        "wall_s": 130.0,
+        "swap_evictions": 11,
+        "swap_models": {
+          "gemma4:12b": 6,
+          "qwen2.5-coder:14b": 5
+        },
+        "spec_audits": 0,
+        "spec_repairs": 0,
+        "spec_failures": 0,
+        "deep_checks": 0,
+        "goal": "تحقق من توازن دفتر الأستاذ بين الوارد والصادر"
+      },
+      {
+        "task": "empty_category",
+        "system_success": true,
+        "oracle_pass": true,
+        "oracle_checks": 8,
+        "oracle_total": 8,
+        "steps": "9/9",
+        "wall_s": 125.2,
+        "swap_evictions": 11,
+        "swap_models": {
+          "gemma4:12b": 6,
+          "qwen2.5-coder:14b": 5
+        },
+        "spec_audits": 0,
+        "spec_repairs": 0,
+        "spec_failures": 0,
+        "deep_checks": 0,
+        "goal": "رصد النفقات في فئة فارغة أو غير مصنفة"
+      },
+      {
+        "task": "sales_growth",
+        "system_success": true,
+        "oracle_pass": true,
+        "oracle_checks": 8,
+        "oracle_total": 8,
+        "steps": "9/9",
+        "wall_s": 125.3,
+        "swap_evictions": 11,
+        "swap_models": {
+          "gemma4:12b": 6,
+          "qwen2.5-coder:14b": 5
+        },
+        "spec_audits": 0,
+        "spec_repairs": 0,
+        "spec_failures": 0,
+        "deep_checks": 0,
+        "goal": "قياس انخفاض نمو المبيعات الشهري"
+      },
+      {
+        "task": "dup_pairs",
+        "system_success": true,
+        "oracle_pass": true,
+        "oracle_checks": 8,
+        "oracle_total": 8,
+        "steps": "9/9",
+        "wall_s": 149.2,
+        "swap_evictions": 11,
+        "swap_models": {
+          "gemma4:12b": 6,
+          "qwen2.5-coder:14b": 5
+        },
+        "spec_audits": 0,
+        "spec_repairs": 0,
+        "spec_failures": 0,
+        "deep_checks": 0,
+        "goal": "اكتشاف أزواج السجلات المكررة عبر مفاتيح متعددة"
+      }
+    ],
+    "controlled_study_exp3": {
+      "note": "Controlled decomposition (EXP-3): same 10 tasks, same seeds, same deterministic oracle. PASS = pipeline success AND oracle green. System rep1 = the archived clean run; reps 2-3 = fresh independent runs for this study. 'Oracle' = green checks / 80.",
+      "arms": {
+        "system_rep1": {
+          "pass_at_1": "10/10",
+          "oracle": "80/80",
+          "median_wall_s": 138.4
+        },
+        "system_rep2": {
+          "pass_at_1": "10/10",
+          "oracle": "80/80",
+          "median_wall_s": 127.2
+        },
+        "system_rep3": {
+          "pass_at_1": "10/10",
+          "oracle": "80/80",
+          "median_wall_s": 126.3
+        },
+        "grounding_only_no_verify": {
+          "pass_at_1": "0/10",
+          "oracle": "40/80",
+          "median_wall_s": 41.6
+        },
+        "no_grounded_classes_ablate": {
+          "pass_at_1": "7/10",
+          "oracle": "78/80",
+          "median_wall_s": 146.4
+        },
+        "raw_model_free": {
+          "pass_at_1": "0/10",
+          "oracle": "60/80",
+          "median_wall_s": 12.7
+        }
+      },
+      "ablate_failure_modes": [
+        "missing_fields: honest halt (refused ungrounded figure)",
+        "empty_category: SILENT ERROR - shipped wrong count with system_success=True, caught only by oracle",
+        "sales_growth: conservative halt on already oracle-correct artifacts (8/8)"
+      ],
+      "keys": {
+        "stripped_in_ablate": [
+          "missing_values",
+          "overspend",
+          "category_sums",
+          "growth_pct"
+        ]
+      }
+    }
   },
-  "financial_cost": "$0.00 (100% local)",
-  "results": {
-   "budget_overspend": {
-    "task": "budget_overspend",
-    "function": "find_overspending",
-    "system_success": [
-     true,
-     true,
-     true
-    ],
-    "oracle_pass": [
-     true,
-     true,
-     true
-    ],
-    "oracle_checks_total": 15,
-    "oracle_total": 15,
-    "wall_med_s": 60.5,
-    "pass_at_1": 3,
-    "pass_at_2": 3,
-    "pass_at_3": 3
-   },
-   "dedupe_pairs": {
-    "task": "dedupe_pairs",
-    "function": "dedupe_pairs",
-    "system_success": [
-     true,
-     true,
-     true
-    ],
-    "oracle_pass": [
-     true,
-     true,
-     true
-    ],
-    "oracle_checks_total": 15,
-    "oracle_total": 15,
-    "wall_med_s": 63.8,
-    "pass_at_1": 3,
-    "pass_at_2": 3,
-    "pass_at_3": 3
-   },
-   "mergesort": {
-    "task": "mergesort",
-    "function": "sort_nums",
-    "system_success": [
-     true,
-     true,
-     true
-    ],
-    "oracle_pass": [
-     true,
-     true,
-     true
-    ],
-    "oracle_checks_total": 15,
-    "oracle_total": 15,
-    "wall_med_s": 66.2,
-    "pass_at_1": 3,
-    "pass_at_2": 3,
-    "pass_at_3": 3
-   },
-   "payroll_net": {
-    "task": "payroll_net",
-    "function": "net_pay",
-    "system_success": [
-     true,
-     true,
-     true
-    ],
-    "oracle_pass": [
-     true,
-     true,
-     true
-    ],
-    "oracle_checks_total": 15,
-    "oracle_total": 15,
-    "wall_med_s": 63.8,
-    "pass_at_1": 3,
-    "pass_at_2": 3,
-    "pass_at_3": 3
-   },
-   "topk_words": {
-    "task": "topk_words",
-    "function": "top_k_words",
-    "system_success": [
-     true,
-     true,
-     true
-    ],
-    "oracle_pass": [
-     true,
-     true,
-     true
-    ],
-    "oracle_checks_total": 15,
-    "oracle_total": 15,
-    "wall_med_s": 62.7,
-    "pass_at_1": 3,
-    "pass_at_2": 3,
-    "pass_at_3": 3
-   }
+  "code_registry": {
+    "note": "Independent, executable-oracle code-generation registry: 5 scenarios (SOFTWARE_ENGINEERING family) run on the production two-role pipeline (commander gemma4:12b plans/judges; executor qwen2.5-coder:14b writes code via WRITE_FILE). Each task receives its exact requirement spec; the oracle is executable: py_compile + subprocess import of the produced module.py + deterministic hidden cases (expected values computed from a reference implementation) + final_report.md existence -- beyond the LLM rubric. 3 independent reps x 5 tasks = 15 runs, all single-shot. The review gate targets the code-review product rather than report prose; report rendering is deterministic (grounding evidence + artifacts) without LLM re-writes. An early pilot without an injected spec (payroll tax brackets invented from memory) failed the oracle 0/9 and was honestly rejected. Aggregate results below; per-replicate raw JSON archived in the companion research log (results_f2_r{1,2,3}.json).",
+    "pass_at_1": "5/5 (100%)",
+    "pass_at_2": "5/5 (100%)",
+    "pass_at_3": "5/5 (100%)",
+    "runs_total": "15/15 (100%)",
+    "oracle_checks_total": "75/75 (100%)",
+    "wall_mean_s": 74.34,
+    "wall_med_s": 63.6,
+    "swap_evictions_mean": 6.866666666666666,
+    "swap_models_total": {
+      "gemma4:12b": 36,
+      "qwen2.5-coder:14b": 67
+    },
+    "financial_cost": "$0.00 (100% local)",
+    "results": {
+      "budget_overspend": {
+        "task": "budget_overspend",
+        "function": "find_overspending",
+        "system_success": [
+          true,
+          true,
+          true
+        ],
+        "oracle_pass": [
+          true,
+          true,
+          true
+        ],
+        "oracle_checks_total": 15,
+        "oracle_total": 15,
+        "wall_med_s": 60.5,
+        "pass_at_1": 3,
+        "pass_at_2": 3,
+        "pass_at_3": 3
+      },
+      "dedupe_pairs": {
+        "task": "dedupe_pairs",
+        "function": "dedupe_pairs",
+        "system_success": [
+          true,
+          true,
+          true
+        ],
+        "oracle_pass": [
+          true,
+          true,
+          true
+        ],
+        "oracle_checks_total": 15,
+        "oracle_total": 15,
+        "wall_med_s": 63.8,
+        "pass_at_1": 3,
+        "pass_at_2": 3,
+        "pass_at_3": 3
+      },
+      "mergesort": {
+        "task": "mergesort",
+        "function": "sort_nums",
+        "system_success": [
+          true,
+          true,
+          true
+        ],
+        "oracle_pass": [
+          true,
+          true,
+          true
+        ],
+        "oracle_checks_total": 15,
+        "oracle_total": 15,
+        "wall_med_s": 66.2,
+        "pass_at_1": 3,
+        "pass_at_2": 3,
+        "pass_at_3": 3
+      },
+      "payroll_net": {
+        "task": "payroll_net",
+        "function": "net_pay",
+        "system_success": [
+          true,
+          true,
+          true
+        ],
+        "oracle_pass": [
+          true,
+          true,
+          true
+        ],
+        "oracle_checks_total": 15,
+        "oracle_total": 15,
+        "wall_med_s": 63.8,
+        "pass_at_1": 3,
+        "pass_at_2": 3,
+        "pass_at_3": 3
+      },
+      "topk_words": {
+        "task": "topk_words",
+        "function": "top_k_words",
+        "system_success": [
+          true,
+          true,
+          true
+        ],
+        "oracle_pass": [
+          true,
+          true,
+          true
+        ],
+        "oracle_checks_total": 15,
+        "oracle_total": 15,
+        "wall_med_s": 62.7,
+        "pass_at_1": 3,
+        "pass_at_2": 3,
+        "pass_at_3": 3
+      }
+    }
   }
- }
 }

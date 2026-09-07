@@ -75,8 +75,8 @@ routes around the trap. Changes (backed by 1313+6 unit tests + ruff clean):
 | v6 grounded + spec-goal | 9/9 | 485.2s | 11 | 15 | 2/0/0 | **pass** |
 | v7 final (txt rows fix) | 9/9 | 285.1s | 11 | 13 | 2/0/0 | **pass** |
 
-Evidence: `docs/evidence/final_report_run7.md` (3881 chars, sections: قائمة الملفات المفحوصة /
-الأنماط المكتشفة / تصنيف الخطر / التوصيات; 10 files, 21,071 rows) + `docs/evidence/data_summary_run7.json`.
+Evidence: `final_report.md` (3881 chars, sections: قائمة الملفات المفحوصة /
+الأنماط المكتشفة / تصنيف الخطر / التوصيات; 10 files, 21,071 rows) + `data_summary.json`.
 
 **Why v6→v7 faster:** txt files now contribute real row counts instead of no-op → more grounded
 prompt → reviewer/step5 converge on fewer regen rounds (285s vs 485s; call counts identical).
@@ -95,11 +95,8 @@ A second, *independent* measurement layer: a **registry of 10 data-verification 
 (same buy/sell-audit goal family as `data_audit_fraud`), each with its own **independent
 deterministic oracle** that checks the produced report against the TRUE synthetic population —
 not against the LLM rubric. The oracle confirms exact-verbatim substrings on the
-renderer's confirmed-patterns + facts lines. Raw drivers in
-`docs/evidence/registry_final/` (`run_registry.py`, `run_all.sh`, `reg_final.log`,
-`out/results_<task>.json`); controlled study in the same dir
-(`run_experiment.py`, `run_exp_all.sh`, `exp_out/results_<arm>_<task>.json`,
-`analyze_exp3.py` → `exp_out/exp_summary.json`); aggregate in
+renderer's confirmed-patterns + facts lines. Running agents and per-task raw results are
+archived in the paper's companion research log; aggregate in
 `WHITE_PAPER_BENCHMARK_RESULTS.json` → `audit_registry`.
 
 **Scenario family (all `max_retries=4`, step5 `min_len=2000`, 10 tasks):**
@@ -178,8 +175,8 @@ A **second goal family** to break the one-family limitation: 5 SOFTWARE_ENGINEER
 scenarios whose oracles are *executable* — `py_compile` + a subprocess import of the
 produced `module.py` + deterministic hidden cases (expected values computed from a
 reference implementation) + `final_report.md` existence. No LLM, no rubric in the oracle.
-Raw driver in `docs/evidence/registry_final/` (`run_family2.py`, `run_f2_all.sh`,
-`f2_full.log`, `f2_out/results_f2_<rep>.json`); aggregate in
+Running agents and per-replicate raw results are archived in the paper's companion
+research log (`results_f2_r1/2/3.json` in this repository); aggregate in
 `WHITE_PAPER_BENCHMARK_RESULTS.json` → `code_registry`.
 
 **Scenario family (8 steps: plan → review-plan → list → write → code-review → report →
