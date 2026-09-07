@@ -1,0 +1,48 @@
+{
+  "n_runs": 15,
+  "n_pass": 15,
+  "pass_rate": 1.0,
+  "hidden_case_accuracy": 1.0,
+  "tasks": [
+    [
+      "budget_overspend",
+      3,
+      3,
+      15,
+      15
+    ],
+    [
+      "dedupe_pairs",
+      3,
+      3,
+      15,
+      15
+    ],
+    [
+      "mergesort",
+      3,
+      3,
+      15,
+      15
+    ],
+    [
+      "payroll_net",
+      3,
+      3,
+      15,
+      15
+    ],
+    [
+      "topk_words",
+      3,
+      3,
+      15,
+      15
+    ]
+  ],
+  "median_walls": [
+    60.5,
+    64.5,
+    63.6
+  ]
+}

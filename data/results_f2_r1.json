@@ -1,0 +1,277 @@
+[
+  {
+    "task": "mergesort",
+    "goal": "نفّذ وظيفة برمجية: «اكتب دالة تُرتّب قائمة أرقام». سلّم module.py + test_module.py + تقرير.",
+    "system_success": true,
+    "steps": "8/8",
+    "step_states": {
+      "step0": "completed",
+      "step0r": "completed",
+      "step1": "completed",
+      "step2": "completed",
+      "step3": "completed",
+      "step5": "completed",
+      "stepR": "completed",
+      "stepV": "completed"
+    },
+    "evaluation": {
+      "stepR": {
+        "verdict": "pass",
+        "overall_score": 0.88,
+        "eval_verdicts": {
+          "step2": "pass",
+          "step3": "pass",
+          "step5": "pass"
+        }
+      },
+      "stepV": {
+        "verdict": "pass",
+        "overall_score": 0.88,
+        "eval_verdicts": {}
+      }
+    },
+    "oracle_pass": true,
+    "oracle_checks": 5,
+    "oracle_total": 5,
+    "violations": [],
+    "wall_s": 67.8,
+    "v13": {
+      "deep_checks": 0,
+      "deep_checks_failed": 0,
+      "repairs": 0,
+      "grounding_used": false,
+      "signatures": [],
+      "repair_outcomes": [],
+      "spec_audits": 0,
+      "spec_repairs": 0,
+      "spec_failures": 0
+    },
+    "swap_evictions": 6,
+    "events": 6,
+    "mode": "system-r1",
+    "swap_models": {
+      "qwen2.5-coder:14b": 4,
+      "gemma4:12b": 2
+    }
+  },
+  {
+    "task": "dedupe_pairs",
+    "goal": "نفّذ وظيفة برمجية: «اكتب دالة تزيل الأزواج المكررة مع الاحتفاظ بالنظام». سلّم module.py + test_module.py + تقرير.",
+    "system_success": true,
+    "steps": "8/8",
+    "step_states": {
+      "step0": "completed",
+      "step0r": "completed",
+      "step1": "completed",
+      "step2": "completed",
+      "step3": "completed",
+      "step5": "completed",
+      "stepR": "completed",
+      "stepV": "completed"
+    },
+    "evaluation": {
+      "stepR": {
+        "verdict": "pass",
+        "overall_score": 0.88,
+        "eval_verdicts": {
+          "step2": "pass",
+          "step3": "pass",
+          "step5": "pass"
+        }
+      },
+      "stepV": {
+        "verdict": "pass",
+        "overall_score": 0.88,
+        "eval_verdicts": {}
+      }
+    },
+    "oracle_pass": true,
+    "oracle_checks": 5,
+    "oracle_total": 5,
+    "violations": [],
+    "wall_s": 63.1,
+    "v13": {
+      "deep_checks": 0,
+      "deep_checks_failed": 0,
+      "repairs": 0,
+      "grounding_used": false,
+      "signatures": [],
+      "repair_outcomes": [],
+      "spec_audits": 0,
+      "spec_repairs": 0,
+      "spec_failures": 0
+    },
+    "swap_evictions": 6,
+    "events": 6,
+    "mode": "system-r1",
+    "swap_models": {
+      "qwen2.5-coder:14b": 4,
+      "gemma4:12b": 2
+    }
+  },
+  {
+    "task": "payroll_net",
+    "goal": "نفّذ وظيفة برمجية: «اكتب دالة تحسب صافي الراتب بعد الضرائب والتأمين». سلّم module.py + test_module.py + تقرير.",
+    "system_success": true,
+    "steps": "8/8",
+    "step_states": {
+      "step0": "completed",
+      "step0r": "completed",
+      "step1": "completed",
+      "step2": "completed",
+      "step3": "completed",
+      "step5": "completed",
+      "stepR": "completed",
+      "stepV": "completed"
+    },
+    "evaluation": {
+      "stepR": {
+        "verdict": "pass",
+        "overall_score": 0.88,
+        "eval_verdicts": {
+          "step2": "pass",
+          "step3": "pass",
+          "step5": "pass"
+        }
+      },
+      "stepV": {
+        "verdict": "pass",
+        "overall_score": 0.88,
+        "eval_verdicts": {}
+      }
+    },
+    "oracle_pass": true,
+    "oracle_checks": 5,
+    "oracle_total": 5,
+    "violations": [],
+    "wall_s": 58.6,
+    "v13": {
+      "deep_checks": 0,
+      "deep_checks_failed": 0,
+      "repairs": 0,
+      "grounding_used": false,
+      "signatures": [],
+      "repair_outcomes": [],
+      "spec_audits": 0,
+      "spec_repairs": 0,
+      "spec_failures": 0
+    },
+    "swap_evictions": 6,
+    "events": 6,
+    "mode": "system-r1",
+    "swap_models": {
+      "qwen2.5-coder:14b": 4,
+      "gemma4:12b": 2
+    }
+  },
+  {
+    "task": "topk_words",
+    "goal": "نفّذ وظيفة برمجية: «اكتب دالة تُرجع أكثر الكلمات تكرارًا في نص». سلّم module.py + test_module.py + تقرير.",
+    "system_success": true,
+    "steps": "8/8",
+    "step_states": {
+      "step0": "completed",
+      "step0r": "completed",
+      "step1": "completed",
+      "step2": "completed",
+      "step3": "completed",
+      "step5": "completed",
+      "stepR": "completed",
+      "stepV": "completed"
+    },
+    "evaluation": {
+      "stepR": {
+        "verdict": "pass",
+        "overall_score": 0.88,
+        "eval_verdicts": {
+          "step2": "pass",
+          "step3": "pass",
+          "step5": "pass"
+        }
+      },
+      "stepV": {
+        "verdict": "pass",
+        "overall_score": 0.88,
+        "eval_verdicts": {}
+      }
+    },
+    "oracle_pass": true,
+    "oracle_checks": 5,
+    "oracle_total": 5,
+    "violations": [],
+    "wall_s": 59.8,
+    "v13": {
+      "deep_checks": 0,
+      "deep_checks_failed": 0,
+      "repairs": 0,
+      "grounding_used": false,
+      "signatures": [],
+      "repair_outcomes": [],
+      "spec_audits": 0,
+      "spec_repairs": 0,
+      "spec_failures": 0
+    },
+    "swap_evictions": 6,
+    "events": 6,
+    "mode": "system-r1",
+    "swap_models": {
+      "qwen2.5-coder:14b": 4,
+      "gemma4:12b": 2
+    }
+  },
+  {
+    "task": "budget_overspend",
+    "goal": "نفّذ وظيفة برمجية: «اكتب دالة تُحدد الأقسام التي تجاوزت ميزانيتها». سلّم module.py + test_module.py + تقرير.",
+    "system_success": true,
+    "steps": "8/8",
+    "step_states": {
+      "step0": "completed",
+      "step0r": "completed",
+      "step1": "completed",
+      "step2": "completed",
+      "step3": "completed",
+      "step5": "completed",
+      "stepR": "completed",
+      "stepV": "completed"
+    },
+    "evaluation": {
+      "stepR": {
+        "verdict": "pass",
+        "overall_score": 0.88,
+        "eval_verdicts": {
+          "step2": "pass",
+          "step3": "pass",
+          "step5": "pass"
+        }
+      },
+      "stepV": {
+        "verdict": "pass",
+        "overall_score": 0.88,
+        "eval_verdicts": {}
+      }
+    },
+    "oracle_pass": true,
+    "oracle_checks": 5,
+    "oracle_total": 5,
+    "violations": [],
+    "wall_s": 60.5,
+    "v13": {
+      "deep_checks": 0,
+      "deep_checks_failed": 0,
+      "repairs": 0,
+      "grounding_used": false,
+      "signatures": [],
+      "repair_outcomes": [],
+      "spec_audits": 0,
+      "spec_repairs": 0,
+      "spec_failures": 0
+    },
+    "swap_evictions": 6,
+    "events": 6,
+    "mode": "system-r1",
+    "swap_models": {
+      "qwen2.5-coder:14b": 4,
+      "gemma4:12b": 2
+    }
+  }
+]

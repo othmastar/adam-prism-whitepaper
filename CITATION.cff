@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use the Adam Prism architecture or its benchmark data, please cite this paper."
+title: "Adam Prism: A Sovereignty-First Architecture for Verified, Deterministic LLM Agents"
+authors:
+  - family-names: Othman
+    given-names: Mohamed
+    affiliation: "Independent Researcher, Cairo, Egypt"
+    orcid: ""
+date-released: 2026-09-07
+version: v0.2
+license: CC-BY-4.0
+keywords:
+  - agentic AI
+  - verification
+  - deterministic evaluation
+  - sovereign AI
+  - local LLM
+  - spec-conformance
